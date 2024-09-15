@@ -83,8 +83,8 @@ export const ShipingForm: React.FC = () => {
     const totalPrice=details?.reduce((total:any,product:any)=>{ return total+product.total_price},0)
     const Khalti_response = await axios.post('https://a.khalti.com/api/v2/epayment/initiate/',
       JSON.stringify({
-          "return_url": `${process.env.NEXT_PUBLIC_STORE_PUBLIC_URL}cart/`,
-          "website_url": `${process.env.NEXT_PUBLIC_STORE_PUBLIC_URL}`,
+          "return_url": `${process.env.STORE_PUBLIC_URL}/cart`,
+          "website_url": `${process.env.STORE_PUBLIC_URL}`,
           "amount": totalPrice+totalPrice*0.13,
           "purchase_order_id": "test12",
           "purchase_order_name": "test",
@@ -108,7 +108,7 @@ export const ShipingForm: React.FC = () => {
           "merchant_extra": "merchant_extra"
         }),
        { headers:{
-          "Authorization":`Key ${process.env.NEXT_PUBLIC_TEST_SECRET_KEY}`,
+          "Authorization":`Key ${process.env.TEST_SECRET_KEY}`,
           "Content-Type":"application/json"
         }
 }
