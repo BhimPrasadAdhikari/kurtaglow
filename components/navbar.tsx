@@ -13,7 +13,6 @@ const Navbar = async () => {
         <Link href="/" className="px-4">
           <p>KURTA GLOW</p>
         </Link>
-        <MainNav data={categories} />
         <NavbarActions />
       </div>
     </Container>
