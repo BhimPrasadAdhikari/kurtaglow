@@ -107,7 +107,7 @@ export const ShipingForm: React.FC = () => {
           "merchant_extra": "merchant_extra"
         }),
        { headers:{
-          "Authorization":`Key ${process.env.TEST_SECRET_KEY}`,
+          "Authorization":"Key 1ac80a190b2749f994576e2d2e8f8f86",
           "Content-Type":"application/json"
         }
 }
