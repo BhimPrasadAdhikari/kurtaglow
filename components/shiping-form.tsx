@@ -83,7 +83,7 @@ export const ShipingForm: React.FC = () => {
     const Khalti_response = await axios.post('https://a.khalti.com/api/v2/epayment/initiate/',
       JSON.stringify({
           "return_url": "https://kurtaglow-y7cc.vercel.app/cart",
-          "website_url": "https://kurtaglow-y7cc.vercel.app",
+          "website_url": "https://kurtaglow-y7cc.vercel.app/",
           "amount": totalPrice+totalPrice*0.13,
           "purchase_order_id": "test12",
           "purchase_order_name": "test",
