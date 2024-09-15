@@ -79,7 +79,7 @@ export const ShipingForm: React.FC = () => {
 )
     setOpen(true);
     const details=response.data.details
-    const totalPrice=details?.reduce((total:number,product:productDetailsProps)=>{ return total+product.total_price},0)
+    const totalPrice=details?.reduce((total:any,product:any)=>{ return total+product.total_price},0)
     const Khalti_response = await axios.post('https://a.khalti.com/api/v2/epayment/initiate/',
       JSON.stringify({
           "return_url": "https://kurtaglow-y7cc.vercel.app/cart/",
