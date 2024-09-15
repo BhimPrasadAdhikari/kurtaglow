@@ -16,19 +16,19 @@ const Summary = () => {
   const removeAll = useCart((state) => state.removeAll);
 
   useEffect(() => {
-    if (searchParams.get('status')==='Completed') {
+    if (searchParams?.get('status')==='Completed') {
       toast.success('Payment completed.');
       removeAll();
     }
 
-    if (searchParams.get('status')==='User cancelled') {
+    if (searchParams?.get('status')==='User cancelled') {
       toast.error('Cancelled Payment');
     }
 
-    if (searchParams.get('status')==='Expired') {
+    if (searchParams?.get('status')==='Expired') {
       toast.error('Transaction Expired');
     }
-    if (searchParams.get('status')==='Refunded') {
+    if (searchParams?.get('status')==='Refunded') {
       toast.error('Payment Refunded');
     }
   }, [searchParams, removeAll]);
@@ -60,9 +60,7 @@ const Summary = () => {
          Add Product
       </Button>
       }
-      <Button onClick={onCheckout} disabled={searchParams.get('status')==='Completed'?true:false} className="w-full mt-6">
-        Checkout
-      </Button>
+   
     </div>
   );
 }
