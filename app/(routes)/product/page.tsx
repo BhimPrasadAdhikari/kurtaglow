@@ -1,5 +1,5 @@
 
-const CategoryPage = async () => {
+const ProductPage = async () => {
   
   return (
   
@@ -11,4 +11,4 @@ const CategoryPage = async () => {
       </div>
   );
 };
-export default CategoryPage;
+export default ProductPage;
