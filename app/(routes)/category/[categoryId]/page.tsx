@@ -2,7 +2,6 @@ export const revalidate=0;
 
 import getCategory from '@/actions/get-category'
 
-import ProductsList from '@/components/product-list';
 import React from 'react'
 import getProducts from '@/actions/get-products';
 import getSizes from '@/actions/get-sizes';

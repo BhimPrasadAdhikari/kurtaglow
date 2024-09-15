@@ -1,8 +1,7 @@
 "use client";
 
-import axios from "axios";
 import { useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 import Button from "@/components/Button";
 import Currency from "@/components/ui/currency";
@@ -61,9 +60,9 @@ const Summary = () => {
          Add Product
       </Button>
       }
-      {/* <Button onClick={onCheckout} disabled={searchParams.get('status')==='Completed'?true:false} className="w-full mt-6">
+      <Button onClick={onCheckout} disabled={searchParams.get('status')==='Completed'?true:false} className="w-full mt-6">
         Checkout
-      </Button> */}
+      </Button>
     </div>
   );
 }

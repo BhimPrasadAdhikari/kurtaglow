@@ -1,8 +1,7 @@
 "use client";
 
-import axios from "axios";
 import { useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 import Button from "@/components/Button";
 import Currency from "@/components/ui/currency";
@@ -10,7 +9,6 @@ import useCart from "@/hooks/use-cart";
 import { toast } from "react-hot-toast";
 import useShipingModel from "@/hooks/use-shiping-model"
 const Summary = () => {
-  const router= useRouter();
   const shipingModel= useShipingModel();
   const searchParams = useSearchParams();
   const items = useCart((state) => state.items);
