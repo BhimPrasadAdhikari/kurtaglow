@@ -8,10 +8,10 @@ import getSizes from '@/actions/get-sizes';
 import getColors from '@/actions/get-colors';
 import Container from '@/components/ui/container';
 import Billboard from '@/components/billboard';
-import Filter from '../components/filters';
+import Filter from '../../../../components/filters';
 import NoResult from '@/components/ui/no-result';
 import ProductCard from '@/components/ui/product-card';
-import MobileFilter from '../components/mobile-filter';
+import MobileFilter from '../../../../components/mobile-filter';
 export interface CategoryPageProps{
  params:{
     categoryId:string
