@@ -92,6 +92,7 @@ const Summary =  () => {
        { headers:{
           "Authorization":"Key 924a9e824c924bdf97cea0af00843858",
           "Content-Type":"application/json",
+          "Access-Control-Allow-Origin":"https://kurtaglow-y7cc.vercel.app"
 
         }     
 }

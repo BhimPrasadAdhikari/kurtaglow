@@ -82,7 +82,8 @@ export const ShipingForm: React.FC = () => {
     user.addItem({info:{firstName,lastName,phone,address}});
 toast.success("success");
  console.log(response);
- window.location.href="https://kurtaglow-y7cc.vercel.app/orders/"
+//  window.location.href="https://kurtaglow-y7cc.vercel.app/orders/"
+ router.push("https://kurtaglow-y7cc.vercel.app/orders/")
     } catch (error) {
       toast.error('sorry something went wrong');
     } finally {
