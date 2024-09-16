@@ -40,6 +40,7 @@ interface productDetailsProps{
   unit_price: number,
 }
 import useCart from '@/hooks/use-cart';
+import useUser from '@/hooks/use-user';
 const formSchema = z.object({
   firstName: z.string().min(1),
   lastName: z.string().min(1),
@@ -51,6 +52,8 @@ export const ShipingForm: React.FC = () => {
   const params = useParams();
   const router = useRouter();
   const items = useCart((state) => state.items);
+  const user = useUser();
+
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const form = useForm<ShipingFormValues>({
@@ -66,6 +69,7 @@ export const ShipingForm: React.FC = () => {
 
     try {
       setLoading(true);
+      user.addItem({firstName,lastName,phone,address});
         const response= await axios.post(`${process.env.NEXT_PUBLIC_API_URL}checkout`,
         JSON.stringify({   productIds: items.map((item)=>item.id),
           details:{phone, address}
