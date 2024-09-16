@@ -115,7 +115,7 @@ export const ShipingForm: React.FC = () => {
  console.log(Khalti_response)
 
  window.location.href=Khalti_response.data.payment_url
-// toast.success("success");
+toast.success("success");
     } catch (error) {
       toast.error('sorry something went wrong');
     } finally {
