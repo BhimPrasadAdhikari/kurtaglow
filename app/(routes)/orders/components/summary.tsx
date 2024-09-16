@@ -41,6 +41,7 @@ const Summary =  () => {
     if (searchParams?.get('status')==='completed') {
       toast.success('Payment completed.');
       removeAll();
+      removeAllitem();
     }
 
     if (searchParams?.get('status')==='User cancelled') {
@@ -53,7 +54,7 @@ const Summary =  () => {
     if (searchParams?.get('status')==='Refunded') {
       toast.error('Payment Refunded');
     }
-  }, [searchParams, removeAll]);
+  }, [searchParams, removeAll,removeAllitem]);
 
   const totalPrice = items.reduce((total, item) => {
     return total + Number(item.price)

@@ -69,17 +69,17 @@ export const ShipingForm: React.FC = () => {
 
     try {
       setLoading(true);
-      user.addItem({firstName,lastName,phone,address});
         const response= await axios.post(`${process.env.NEXT_PUBLIC_API_URL}checkout`,
         JSON.stringify({   productIds: items.map((item)=>item.id),
           details:{phone, address}
         }),
          { headers:{
-            "Content-Type":"application/x-www-form-urlencoded"
+            "Content-Type":"application/x-www-form-urlencoded" 
           }
         }  
 )
     setOpen(true);
+    user.addItem({info:{firstName,lastName,phone,address}});
 toast.success("success");
  console.log(response);
  window.location.href="https://kurtaglow-y7cc.vercel.app/orders/"
