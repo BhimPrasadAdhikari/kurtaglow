@@ -15,19 +15,19 @@ const Summary = () => {
   const removeAll = useCart((state) => state.removeAll);
 
   useEffect(() => {
-    if (searchParams.get('status')==='completed') {
+    if (searchParams?.get('status')==='completed') {
       toast.success('Payment completed.');
       removeAll();
     }
 
-    if (searchParams.get('status')==='User cancelled') {
+    if (searchParams?.get('status')==='User cancelled') {
       toast.error('Cancelled Payment');
     }
 
-    if (searchParams.get('status')==='Expired') {
+    if (searchParams?.get('status')==='Expired') {
       toast.error('Transaction Expired');
     }
-    if (searchParams.get('status')==='Refunded') {
+    if (searchParams?.get('status')==='Refunded') {
       toast.error('Payment Refunded');
     }
   }, [searchParams, removeAll]);

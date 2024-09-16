@@ -108,9 +108,12 @@ export const ShipingForm: React.FC = () => {
         }),
        { headers:{
           "Authorization":"Key 924a9e824c924bdf97cea0af00843858",
-          "Content-Type":"application/json"
-        }
+          "Content-Type":"application/json",
+
+        }     
 }
+
+  
  ); 
  console.log(Khalti_response)
 
@@ -211,7 +214,7 @@ toast.success("success");
             )}
           />
           
-          <Button type="submit">Khalti payment</Button>
+          <Button type="submit">submit</Button>
         </form>
       </Form>
       <hr className="mt-2" />
