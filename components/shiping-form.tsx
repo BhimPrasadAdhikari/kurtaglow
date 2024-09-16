@@ -73,52 +73,12 @@ export const ShipingForm: React.FC = () => {
          { headers:{
             "Content-Type":"application/x-www-form-urlencoded"
           }
-        }
-
-     
+        }  
 )
     setOpen(true);
-    const details=response.data.details
-    const totalPrice=details?.reduce((total:any,product:any)=>{ return total+product.total_price},0)
-    const Khalti_response = await axios.post('https://a.khalti.com/api/v2/epayment/initiate/',
-      JSON.stringify({
-          "return_url": "https://kurtaglow-y7cc.vercel.app/cart/",
-          "website_url": "https://kurtaglow-y7cc.vercel.app/",
-          "amount": totalPrice+totalPrice*0.13,
-          "purchase_order_id": "test12",
-          "purchase_order_name": "test",
-          "customer_info": {
-              "name": `${firstName} ${lastName}`,
-              "email": "example@gmail.com",
-              "phone": phone
-          },
-          "amount_breakdown": [
-              {
-                  "label": "Mark Price",
-                  "amount": totalPrice
-              },
-              {
-                  "label": "VAT",
-                  "amount": totalPrice*0.13
-              }
-          ],
-          "product_details": details,
-          "merchant_username": "Test Testt ",
-          "merchant_extra": "merchant_extra"
-        }),
-       { headers:{
-          "Authorization":"Key 924a9e824c924bdf97cea0af00843858",
-          "Content-Type":"application/json",
-
-        }     
-}
-
-  
- ); 
- console.log(Khalti_response)
-
- window.location.href=Khalti_response.data.payment_url
 toast.success("success");
+ console.log(response);
+ window.location.href="https://kurtaglow-y7cc.vercel.app/orders/"
     } catch (error) {
       toast.error('sorry something went wrong');
     } finally {
