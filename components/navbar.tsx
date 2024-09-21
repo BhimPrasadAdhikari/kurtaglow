@@ -5,6 +5,7 @@ import Link from 'next/link';
 import MainNav from './main-nav';
 import getCategories from '@/actions/get-categories';
 import NavbarActions from './navbar-actions';
+
 const Navbar = async () => {
   const categories = await getCategories();
   return (
@@ -13,6 +14,7 @@ const Navbar = async () => {
         <Link href="/" className="px-4">
           <p>KURTA GLOW</p>
         </Link>
+        <MainNav data={categories}/>
         <NavbarActions />
       </div>
     </Container>

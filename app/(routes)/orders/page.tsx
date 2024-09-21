@@ -1,27 +1,28 @@
-"use client";
+// "use client";
 
-import { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
 
 import Container from '@/components/ui/container';
-import useCart from '@/hooks/use-cart';
+// import useCart from '@/hooks/use-cart';
 
-import Summary from './components/summary'
-import CartItem from './components/cart-item';
+// import CartItem from './components/cart-item';
+import getOrders from '@/actions/get-orders';
+import OrderItem from './components/cart-item';
+import { useUser } from '@clerk/nextjs';
+import { Order } from '@/types';
+import Summary from './components/summary';
 
 export const revalidate = 0;
 
-const CartPage = () => {
-  const [isMounted, setIsMounted] = useState(false);
-  const cart = useCart();
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  if (!isMounted) {
-    return null;
-  }
-
+const OrderPage = async () => {
+  // const {user}=useUser();
+  // const email=user?.primaryEmailAddress;
+  const email="pb838942@gmail.com"
+  // const [orders,setOrders]=useState([])
+  const orders= await  getOrders({email:email});
+   console.log(orders)
+  // const cart = useCart();
+ 
   return (
     <div className="bg-white">
       <Container>
@@ -29,10 +30,16 @@ const CartPage = () => {
           <h1 className="text-3xl font-bold text-black">Shopping Cart</h1>
           <div className="mt-12 lg:grid lg:grid-cols-12 lg:items-start gap-x-12">
             <div className="lg:col-span-7">
-              {cart.items.length === 0 && <p className="text-neutral-500">No orders</p>}
+              {/* {cart.items.length === 0 && <p className="text-neutral-500">No orders</p>} */}
+              {orders.length === 0 && <p className="text-neutral-500">No orders</p>}
+
               <ul>
-                {cart.items.map((item) => (
+                {/* {cart.items.map((item) => (
                   <CartItem key={item.id} data={item} />
+                ))} */}
+                 {orders.map((item) => (
+                  // <CartItem key={item.id} data={item} />
+                   <OrderItem key={item.id} data={item} />
                 ))}
               </ul>
             </div>
@@ -44,4 +51,4 @@ const CartPage = () => {
   )
 };
 
-export default CartPage;
+export default OrderPage;

@@ -41,6 +41,10 @@ interface productDetailsProps{
 }
 import useCart from '@/hooks/use-cart';
 import useUser from '@/hooks/use-user';
+import ShippingModal from './customer-modal';
+import { useUser as ClerkUser } from '@clerk/clerk-react'
+
+
 const formSchema = z.object({
   firstName: z.string().min(1),
   lastName: z.string().min(1),
@@ -51,9 +55,13 @@ type ShipingFormValues = z.infer<typeof formSchema>;
 export const ShipingForm: React.FC = () => {
   const params = useParams();
   const router = useRouter();
+  const shipingModel=ShippingModal();
   const items = useCart((state) => state.items);
-  const user = useUser();
-
+  const User = useUser();
+  const {user,isSignedIn} = ClerkUser();
+  const emailAttribute=user?.primaryEmailAddress;
+  const email=emailAttribute?.emailAddress;
+  
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const form = useForm<ShipingFormValues>({
@@ -66,12 +74,12 @@ export const ShipingForm: React.FC = () => {
     },
   });
   const onSubmit = async ({phone,address,firstName,lastName}: ShipingFormValues) => {
-
+  const fullName=`${firstName} ${lastName}`
     try {
       setLoading(true);
         const response= await axios.post(`${process.env.NEXT_PUBLIC_API_URL}checkout`,
         JSON.stringify({   productIds: items.map((item)=>item.id),
-          details:{phone, address}
+          details:{fullName,email,phone, address}
         }),
          { headers:{
             "Content-Type":"application/x-www-form-urlencoded" 
@@ -79,15 +87,18 @@ export const ShipingForm: React.FC = () => {
         }  
 )
     setOpen(true);
-    user.addItem({info:{firstName,lastName,phone,address}});
+    User.addItem({info:{firstName,lastName,phone,address}});
 toast.success("success");
  console.log(response);
 //  window.location.href="https://kurtaglow-y7cc.vercel.app/orders/"
- router.push("https://kurtaglow-y7cc.vercel.app/orders/")
+//  router.push("https://kurtaglow-y7cc.vercel.app/orders/")
+router.push("/orders")
     } catch (error) {
       toast.error('sorry something went wrong');
     } finally {
       setLoading(false);
+    setOpen(true);
+
       
     }
   }; 

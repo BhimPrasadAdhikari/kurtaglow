@@ -15,7 +15,7 @@ const MainNav: React.FC<MainNavProps> = ({ data }) => {
     label: route.name,
     active: pathname === `/category/${route.id}`,
   }));
-
+routes.push( {href:'/orders',label:'Orders', active:pathname==='/orders'})
   return (
     <nav className="flex flex-row items-center space-x-4 lg:space-x-6">
       {routes.map((route) => {

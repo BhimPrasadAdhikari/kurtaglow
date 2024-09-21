@@ -12,19 +12,18 @@ export interface gallery{
 const Gallery:React.FC<gallery> = ({
     images
 }) => {
-  return (
-    <div>
+  return (    <div>
         <Tabs defaultValue={images[0].id} className="w-[400px]">
         {images.map((image)=>{
   return  <TabsContent key={image.id} value={image.id}>
-    <Image src={image.url} alt="image"  width={400} height={400}/>
+    <Image src={image.url} alt="image"  width={400} height={400} priority className="h-auto w-auto"/>
   </TabsContent>
    })
    } 
   <TabsList>
    {images.map((image)=>{
-  return  <TabsTrigger key={image.id} value={image.id}>
-    <Image src={image.url} alt="image"  width={150} height={150}/>
+  return  <TabsTrigger key={image.id} value={image.id} >
+    <Image src={image.url} alt="image"  width={40} height={40} className="h-auto w-auto"/>
   </TabsTrigger>
    })
    } 

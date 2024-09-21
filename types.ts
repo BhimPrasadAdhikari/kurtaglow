@@ -7,11 +7,19 @@ export interface Category{
     id:string;
     name:string;
     billboard:Billboard;
+    specifications:Specification[];
+}
+export interface Specification{
+    id:String;
+    name:String;
+    value:String[];
 }
 export interface Product{
     id:string,
     name:string,
+    detail:string,
     price:number,
+    discount:number,
     isFeatured:boolean,
     color:Color,
     category:Category,
@@ -33,4 +41,17 @@ export interface Size {
 export interface Images{
     id:string,
     url:string
+}
+export interface Order{
+    id:string;
+    orderItems: Orderitem[];
+    isPaid:boolean;
+    phone:string;
+    address:string;
+}
+export interface Orderitem{
+    id:string;
+    orderId:string;
+    productId:string;
+
 }

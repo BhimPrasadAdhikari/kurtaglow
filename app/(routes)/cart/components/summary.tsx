@@ -1,18 +1,22 @@
 "use client";
 
 import { useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import Button from "@/components/Button";
 import Currency from "@/components/ui/currency";
 import useCart from "@/hooks/use-cart";
 import { toast } from "react-hot-toast";
 import useShipingModel from "@/hooks/use-shiping-model"
+import useUser from "@/hooks/use-user";
 
 const Summary = () => {
   const shipingModel= useShipingModel();
+  const router = useRouter();
+
   const searchParams = useSearchParams();
   const items = useCart((state) => state.items);
+  const info = useUser((state) => state.info);
   const removeAll = useCart((state) => state.removeAll);
 
   useEffect(() => {
@@ -37,7 +41,12 @@ const Summary = () => {
     return total + Number(item.price)
   }, 0);
   const onCheckout =() => {
+    // if(!(info.firstName==''))
+  //  { }
     shipingModel.onOpen()
+    // else{
+    //   router.push('/orders')
+    // }
   }
 
   return ( 

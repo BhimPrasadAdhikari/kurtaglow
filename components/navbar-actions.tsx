@@ -4,7 +4,7 @@ import Button from './Button';
 import { useEffect, useState } from 'react';
 import useCart from "@/hooks/use-cart";
 import { useRouter } from 'next/navigation';
-
+import { UserButton, UserProfile, auth } from '@clerk/nextjs';
 const NavbarActions = () => {
   const [isMounted, setIsMounted] = useState(false);
   useEffect(() => {
@@ -26,6 +26,9 @@ const router=useRouter();
 
         </span>
       </Button>
+      <UserButton afterSignOutUrl='/'/>
+      {/* <UserProfile /> */}
+
     </div>
   );
 };
