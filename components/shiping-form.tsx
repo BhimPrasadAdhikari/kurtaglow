@@ -60,17 +60,16 @@ export const ShipingForm: React.FC = () => {
   const User = useUser();
   const {user,isSignedIn} = ClerkUser();
   const emailAttribute=user?.primaryEmailAddress;
-  const email=emailAttribute?.emailAddress;
-  
+  const email=emailAttribute?.emailAddress;  
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const form = useForm<ShipingFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues:{
-      firstName: '',
-      lastName: '',
-      phone: '',
-      address: ''
+      firstName: User.info.firstName,
+      lastName: User.info.lastName,
+      phone: User.info.phone,
+      address: User.info.address
     },
   });
   const onSubmit = async ({phone,address,firstName,lastName}: ShipingFormValues) => {
@@ -92,7 +91,7 @@ toast.success("success");
  console.log(response);
 //  window.location.href="https://kurtaglow-y7cc.vercel.app/orders/"
 //  router.push("https://kurtaglow-y7cc.vercel.app/orders/")
-router.push("/orders")
+window.location.href="http://localhost:3001/orders"
     } catch (error) {
       toast.error('sorry something went wrong');
     } finally {
