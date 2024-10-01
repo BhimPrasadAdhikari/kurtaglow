@@ -13,7 +13,7 @@ import OrderPageSkeleton from './components/LoadingSkeleton';
 const OrderPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const { user } = useUser(); // Check the user state
-  console.log('User:', user); // Debug log for user
+  console.log('User_Email:', user?.primaryEmailAddress); // Debug log for user
 
   const email = String(user?.primaryEmailAddress) || "";
   const [paymentStatus, setPaymentStatus] = useState("Pending");
