@@ -26,6 +26,10 @@ const OrderItem: React.FC<OrderItemProps> = ({ data }) => {
               <p className="text-neutral-400">Status</p>
               <p>{data.isPaid ? 'Paid' : 'Not Paid'}</p>
             </div>
+            <div className="flex-1">
+              <p className="text-neutral-400">Date</p>
+              <p>{data.createdAt.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</p>
+              </div>
           </div>
         </div>
       </div>
