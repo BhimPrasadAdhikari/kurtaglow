@@ -10,21 +10,20 @@ import OrderList from './components/order-list';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import OrderPageSkeleton from './components/LoadingSkeleton';
 
-
 const OrderPage = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [email,setEmail]=useState("");
-  const { user } = useUser(); // Check the user state
+  const [email, setEmail] = useState("");
+  const { user, isLoaded } = useUser(); // Add isLoaded for checking user state
 
   const [paymentStatus, setPaymentStatus] = useState("Pending");
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    if(user){
-      setEmail(String(user.primaryEmailAddress))
-  console.log('User_Email:', user?.primaryEmailAddress); // Debug log for user
-
+    if (isLoaded && user) {
+      setEmail(String(user.primaryEmailAddress));
+      console.log('User_Email:', user?.primaryEmailAddress); // Debug log for user
     }
+
     const status = searchParams?.get('status');
     if (status) {
       if (status === 'completed') {
@@ -41,13 +40,13 @@ const OrderPage = () => {
       }
     }
     setTimeout(() => setIsLoading(false), 1500); // Simulating a delay for demo purposes
-  }, [searchParams,user]);
+  }, [searchParams, user, isLoaded]);
 
   const handleTabChange = (value: string) => {
     setPaymentStatus(value);
   };
 
-  if (isLoading || !user) {
+  if (isLoading || !isLoaded || !user) {
     return <OrderPageSkeleton />; // Render the loading skeleton or redirect if not signed in
   }
 
