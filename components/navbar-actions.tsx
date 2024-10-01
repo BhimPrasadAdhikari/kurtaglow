@@ -23,36 +23,39 @@ const NavbarActions = () => {
   }
 
   return (
-    <div className="ml-auto flex items-center gap-x-4">
-      {/* Dark mode toggle */}
+    <div className="ml-auto flex items-center gap-x-4 relative">
       <ModeToggle />
-
+      
       {/* Wishlist Button */}
-      <Button 
-        onClick={() => router.push('/wishlist')}
-        className="bg-black flex items-center px-2 py-1 sm:px-4 sm:py-2 rounded-full"
-      >
-        <HeartIcon size={20} color="white" />
-        <span className="ml-1 text-xs sm:text-sm font-medium">
-          {wish.items.length}
-        </span>
-      </Button>
+      <div className="relative">
+        <Button 
+          onClick={() => router.push('/wishlist')}
+          className="bg-black flex items-center p-2 rounded-full">
+          <HeartIcon size={20} color="white" />
+        </Button>
+        {wish.items.length > 0 && (
+          <span className="absolute top-0 right-0 bg-red-500 text-white text-xs font-bold rounded-full px-1.5">
+            {wish.items.length}
+          </span>
+        )}
+      </div>
 
       {/* Cart Button */}
-      <Button 
-        onClick={() => router.push('/cart')}
-        className="bg-black flex items-center px-2 py-1 sm:px-4 sm:py-2 rounded-full"
-      >
-        <ShoppingBag size={20} color="white" />
-        <span className="ml-1 text-xs sm:text-sm font-medium">
-          {cart.items.length}
-        </span>
-      </Button>
-
-      {/* User Profile Button */}
-      <div className="flex items-center">
-        <UserButton afterSignOutUrl='/' />
+      <div className="relative">
+        <Button 
+          onClick={() => router.push('/cart')}
+          className="bg-black flex items-center p-2 rounded-full">
+          <ShoppingBag size={20} color="white" />
+        </Button>
+        {cart.items.length > 0 && (
+          <span className="absolute top-0 right-0 bg-red-500 text-white text-xs font-bold rounded-full px-1.5">
+            {cart.items.length}
+          </span>
+        )}
       </div>
+
+      {/* User Button */}
+      <UserButton afterSignOutUrl='/' />
     </div>
   );
 };
