@@ -6,8 +6,8 @@ export interface Query {
   categoryId?: string;
   isFeatured?: boolean;
 }
-const baseUrl = `${process.env.NEXT_PUBLIC_API_URL}products`;
-// const baseUrl="https://admin-dashboard-eight-lemon.vercel.app/api/66e1b12be5a4dd025ef9081f/products"
+// const baseUrl = `${process.env.NEXT_PUBLIC_API_URL}products`;
+const baseUrl="https://admin-dashboard-eight-lemon.vercel.app/api/66e1b12be5a4dd025ef9081f/products"
 const getProducts = async (query:Query): Promise<Product[]> => {
   const url=qs.stringifyUrl({
     url:baseUrl,
