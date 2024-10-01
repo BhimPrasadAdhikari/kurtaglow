@@ -12,14 +12,18 @@ import OrderPageSkeleton from './components/LoadingSkeleton';
 
 const OrderPage = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [email,setEmail]=useState("");
   const { user } = useUser(); // Check the user state
-  console.log('User_Email:', user?.primaryEmailAddress); // Debug log for user
 
-  const email = String(user?.primaryEmailAddress) || "";
   const [paymentStatus, setPaymentStatus] = useState("Pending");
   const searchParams = useSearchParams();
 
   useEffect(() => {
+    if(user){
+      setEmail(String(user.primaryEmailAddress))
+  console.log('User_Email:', user?.primaryEmailAddress); // Debug log for user
+
+    }
     const status = searchParams?.get('status');
     if (status) {
       if (status === 'completed') {
@@ -36,7 +40,7 @@ const OrderPage = () => {
       }
     }
     setTimeout(() => setIsLoading(false), 1500); // Simulating a delay for demo purposes
-  }, [searchParams]);
+  }, [searchParams,user]);
 
   const handleTabChange = (value: string) => {
     setPaymentStatus(value);
