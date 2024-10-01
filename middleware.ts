@@ -1,7 +1,9 @@
 import { authMiddleware } from '@clerk/nextjs/server';
 
 export default authMiddleware({
-  publicRoutes: ['/', '/category', '/product:path','/cart','/category:path'], // Routes that can be accessed without signing in
+  publicRoutes: ['/', '/category', '/product/:path','/cart','/category/:path'],
+   // Routes that can be accessed without signing in
+   ignoredRoutes:['/orders','/orders/:path']
 });
 
 export const config = {
