@@ -84,7 +84,7 @@ const msg=`total_amount=${total_amount},transaction_uuid=${transaction_uuid},pro
     try
     {
        setLoading(true);
-      const Khalti_response = await axios.post('https://a.khalti.com/api/v2/epayment/initiate/',
+      const Khalti_response = await axios.post('https://khalti.com/api/v2/epayment/initiate/',
       JSON.stringify({
           "return_url": "https://kurtaglow-y7cc.vercel.app/cart/",
 
@@ -131,7 +131,7 @@ const msg=`total_amount=${total_amount},transaction_uuid=${transaction_uuid},pro
     try
     {
        setLoading(true);
-      const Khalti_response = await axios.post('https://rc-epay.esewa.com.np/api/epay/main/v2/form',
+      const Khalti_response = await axios.post('https://epay.esewa.com.np/api/epay/main/v2/form',
        JSON.stringify( {
           "amount": "100",
           "tax_amount": "10",
