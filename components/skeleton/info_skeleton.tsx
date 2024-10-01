@@ -1,62 +1,60 @@
+import React from 'react';
 
-import { Badge } from 'lucide-react';
-import Currency from '../ui/currency';
-const InfoLoading =  () => {
-    const specifications=[1,2,3,4]
+const InfoSkeleton: React.FC = () => {
   return (
-    <div className='animate-pulse'>
-        <div className='text-3xl font-bold text-gray-200  bg-slate-200 w-32 h-12 '> </div>
-       <div className='bg-slate-200 text-gray-200 w-4 h-12'> 
-       </div>
-        <div className='mt-3 flex'>
-             <div>
-               <div className='text-3xl font-bold text-gray-200  bg-slate-200 w-32 h-12'> 
-                
-               </div>
+    <div className="animate-pulse">
+      {/* Product Name */}
+      <div className="h-8 w-48 bg-gray-200 dark:bg-gray-700 rounded-md mb-4"></div>
 
-            </div>
-        <div className=' mx-2  '>
-        <div className='text-3xl font-bold text-gray-200  bg-slate-200 w-32 h-12 '> </div>
-            
-            </div> 
+      {/* Product Description */}
+      <div className="h-4 w-64 bg-gray-200 dark:bg-gray-700 rounded-md mb-6"></div>
 
-   <div className='relative'>
-    <Badge color='gray' fill='gray' className='absolute' size={38}/>
-         </div>
+      {/* Price and Discount */}
+      <div className="flex items-center space-x-4 mb-4">
+        <div className="h-6 w-24 bg-gray-200 dark:bg-gray-700 rounded-md"></div>
+        <div className="h-6 w-16 bg-gray-300 dark:bg-gray-600 rounded-md"></div>
+        <div className="relative">
+          <div className="h-8 w-8 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
         </div>
-        <hr className='my-4 bg-slate-200 text-gray-200'/>
-       <div className='flex flex-col gap-y-6 '>
-         <div className='flex items-center gap-x-4 '>
-            <div className='font-semibold bg-slate-200 text-gray-200 w-32 h-12'> </div>
-            <div className='bg-slate-200 text-gray-200 w-32 h-12'>
-            </div>
+      </div>
+
+      <hr className="my-4" />
+
+      {/* Size */}
+      <div className="flex items-center gap-x-4 mb-4">
+        <div className="h-4 w-20 bg-gray-200 dark:bg-gray-700 rounded-md"></div>
+        <div className="h-6 w-12 bg-gray-200 dark:bg-gray-700 rounded-md"></div>
+      </div>
+
+      {/* Color */}
+      <div className="flex items-center gap-x-4 mb-4">
+        <div className="h-4 w-20 bg-gray-200 dark:bg-gray-700 rounded-md"></div>
+        <div className="h-6 w-6 bg-gray-200 dark:bg-gray-700 rounded-full border border-gray-600"></div>
+      </div>
+
+      <hr className="my-4" />
+
+      {/* Specifications */}
+      <div className="mb-4">
+        <div className="h-4 w-32 bg-gray-200 dark:bg-gray-700 rounded-md mb-2"></div>
+        <div className="flex gap-x-6">
+          <div className="flex flex-col gap-y-2">
+            <div className="h-4 w-24 bg-gray-200 dark:bg-gray-700 rounded-md"></div>
+            <div className="h-4 w-32 bg-gray-200 dark:bg-gray-700 rounded-md"></div>
+          </div>
+          <div className="flex flex-col gap-y-2">
+            <div className="h-4 w-24 bg-gray-200 dark:bg-gray-700 rounded-md"></div>
+            <div className="h-4 w-32 bg-gray-200 dark:bg-gray-700 rounded-md"></div>
+          </div>
         </div>
-        <div className='flex items-center gap-x-4'>
-            <div className='font-semibold bg-slate-200 text-gray-200 w-32 h-12'> </div>
-            <div className='h-6 w-6 rounded-full border border-gray-200 bg-slate-200'>
-            </div>
-        </div>
-       </div>
-       <hr className='my-4 bg-slate-200 text-gray-200'/>
-       <div className='text-1xl font-bold bg-slate-200 text-gray-200 w-3 h-12'></div>
-       <div className='flex  gap-x-6 '>
-      {specifications?.map((specification,index)=>{
- return <div key={index} className='flex flex-col  gap-y-1 '>
- <div className='font-semibold bg-slate-200 text-gray-200 w-32 h-12'> 
- </div>
- <div className='bg-slate-200  w-32 h-12'>
-     
- </div>
- <hr />
-</div>
-      })}
-     </div>
-       <div className='mt-10 flex items-center gap-x-3 '>
-<div className='flex items-center gap-x-2  bg-slate-200 text-gray-200 w-4 h-4' >
-</div>
-       </div>
+      </div>
+
+      {/* Add to Cart Button */}
+      <div className="mt-10">
+        <div className="h-12 w-36 bg-gray-200 dark:bg-gray-700 rounded-md"></div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default InfoLoading
+export default InfoSkeleton;

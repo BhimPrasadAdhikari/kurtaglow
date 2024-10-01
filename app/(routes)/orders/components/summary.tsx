@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import axios from "axios";
-import Button from "@/components/Button";
+import {Button} from "@/components/ui/Button";
 import Currency from "@/components/ui/currency";
 import useCart from "@/hooks/use-cart";
 import { toast } from "react-hot-toast";
@@ -12,6 +12,8 @@ import { createHmac } from "crypto";
 import {v4 as uuidv4} from 'uuid';
 import Image from "next/image";
 import { url } from "inspector";
+import { EditIcon } from "lucide-react";
+import useShipingModel from "@/hooks/use-shiping-model";
 interface productDetailsProps{
   identity: string,
   name:string,
@@ -25,6 +27,8 @@ const Summary =  () => {
   const [loading, setLoading] = useState(false);
 
   const items = useCart((state) => state.items);
+  const shipingModel= useShipingModel();
+
   const removeAllitem = useCart((state) => state.removeAll);
   const {firstName, lastName,phone,address} = useUser((state) => state.info);
   const removeAll = useUser((state) => state.removeAll);
@@ -148,28 +152,31 @@ const msg=`total_amount=${total_amount},transaction_uuid=${transaction_uuid},pro
 
   return ( 
     <div
-      className="mt-16 rounded-lg bg-gray-50 px-4 py-6 sm:p-6 lg:col-span-5 lg:mt-0 lg:p-8"
+      className="mt-16 rounded-lg relative bg-gray-50 dark:bg-black px-4 py-6 sm:p-6 lg:col-span-5 lg:mt-0 lg:p-8"
     >
-      <h2 className="text-lg font-medium text-gray-900">
+        <h2 className="text-lg font-medium text-gray-900 dark:text-white">
         Summary
       </h2>
+      <Button onClick={()=>{shipingModel.onOpen()}} className="absolute right-0 top-0" size='default' variant='ghost'>
+        <EditIcon color="blue"/>
+      </Button>
       <div className="mt-6 space-y-4">
         <div className="flex items-center justify-between border-t border-gray-200 pt-4">
-          <div className="text-base font-medium text-gray-900">Order total</div>
+          <div className="text-base font-medium text-gray-900 dark:text-white">Order total</div>
          <Currency value={totalPrice} />
         </div>
       </div>
       <div className="mt-6 space-y-4">
         <div className="flex items-center justify-between border-t border-gray-200 pt-4">
-          <div className="text-base font-medium text-gray-900">Name</div>
+          <div className="text-base font-medium text-gray-900 dark:text-white">Name</div>
           <p>{firstName+' '+lastName}</p>
         </div>
         <div className="flex items-center justify-between border-t border-gray-200 pt-4">
-          <div className="text-base font-medium text-gray-900">Address</div>
+          <div className="text-base font-medium text-gray-900 dark:text-white">Address</div>
           <p>{address}</p>
         </div>
         <div className="flex items-center justify-between border-t border-gray-200 pt-4">
-          <div className="text-base font-medium text-gray-900">Phone</div>
+          <div className="text-base font-medium text-gray-900 dark:text-white">Phone</div>
           <p>{phone}</p>
         </div>
       </div>

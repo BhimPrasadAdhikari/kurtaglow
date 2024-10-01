@@ -1,0 +1,40 @@
+
+import { Order } from "@/types";
+import OrderProduct from "./order-product";
+
+
+interface OrderItemProps {
+  data: Order;
+}
+const OrderItem: React.FC<OrderItemProps> = ({
+  data
+}) => {
+  return ( 
+    <li className="flex py-6 border-b dark:text-white relative">
+      <div className="relative h-24 w-28 rounded-md overflow-hidden sm:h-48 sm:w-48">
+        <OrderProduct data={data.orderItems} />
+      </div>
+      <div className="relative ml-4 flex flex-1 flex-col justify-between sm:ml-6">
+       
+        <div className="relative pr-12 gap-3 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:pr-0">
+            <div>
+              <p className="text-neutral-400">Id</p>
+              <p>{data.id}</p>
+            </div>
+            <div className="flex gap-4">
+            <div>
+              <p className="text-neutral-400">Address</p>
+            <p className="text-wrap">{data.address}</p>
+            </div>
+            <div>
+            <p className="text-neutral-400">Status</p>
+            <p >{data.isPaid?'Paid':'Not Paid'}</p>
+            </div>
+            </div>
+        </div>
+      </div>
+    </li>
+  );
+}
+ 
+export default OrderItem;

@@ -20,6 +20,8 @@ export interface Product{
     detail:string,
     price:number,
     discount:number,
+    quantity:number,
+    stock: number,    
     isFeatured:boolean,
     color:Color,
     category:Category,
@@ -46,6 +48,7 @@ export interface Order{
     id:string;
     orderItems: Orderitem[];
     isPaid:boolean;
+    paymentStatus:string;
     phone:string;
     address:string;
 }
@@ -53,5 +56,7 @@ export interface Orderitem{
     id:string;
     orderId:string;
     productId:string;
+    quantity:number;
+    product : Product;
 
 }

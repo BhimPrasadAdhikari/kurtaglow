@@ -33,8 +33,8 @@ const CategoryPage:React.FC<CategoryPageProps> = async({
     const sizes=await getSizes();
     const colors=await getColors();
   return (
-    <div className='bg-white'>
-      <Container >
+    <div className='bg-white dark:bg-black'>
+      <Container  >
         <Billboard data={category.billboard}/>
         <div className='px-4 sm:px-6 lg:px-8 pb-24'>
           <div className='lg:grid lg:grid-cols-5 lg:gap-x-8'>
@@ -49,7 +49,6 @@ const CategoryPage:React.FC<CategoryPageProps> = async({
               {products.map((item)=>{
             return    <ProductCard key={item.id} data={item}/>
               })}
-
 
             </div>
 

@@ -8,6 +8,7 @@ interface CartStore {
   items: Product[];
   addItem: (data: Product) => void;
   removeItem: (id: string) => void;
+  increaseItem:(id:string,actionType:string)=>void;
   removeAll: () => void;
 }
 
@@ -28,6 +29,29 @@ const useCart = create(
   removeItem: (id: string) => {
     set({ items: [...get().items.filter((item) => item.id !== id)] });
     toast.success('Item removed from cart.');
+  },
+  increaseItem: (id: string, actionType: string) => {
+    set((state) => {
+      return {
+        items: state.items.map(item => {
+          if (item.id === id) {
+            let newQuantity = item.quantity;
+  
+            if (actionType === 'INCREASE' && newQuantity<item.stock) {
+              newQuantity++;
+            } else if (actionType === 'DECREASE' && item.quantity > 1) {
+              newQuantity--;
+            }
+  
+            return {
+              ...item,
+              quantity: newQuantity,
+            };
+          }
+          return item;
+        })
+      };
+    });
   },
   removeAll: () => set({ items: [] }),
 }), {

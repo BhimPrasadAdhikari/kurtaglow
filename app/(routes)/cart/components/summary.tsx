@@ -1,69 +1,38 @@
 "use client";
 
-import { useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
 
 import Button from "@/components/Button";
 import Currency from "@/components/ui/currency";
 import useCart from "@/hooks/use-cart";
-import { toast } from "react-hot-toast";
 import useShipingModel from "@/hooks/use-shiping-model"
-import useUser from "@/hooks/use-user";
 
 const Summary = () => {
   const shipingModel= useShipingModel();
-  const router = useRouter();
 
-  const searchParams = useSearchParams();
   const items = useCart((state) => state.items);
-  const info = useUser((state) => state.info);
-  const removeAll = useCart((state) => state.removeAll);
-
-  useEffect(() => {
-    if (searchParams?.get('status')==='Completed') {
-      toast.success('Payment completed.');
-      removeAll();
-    }
-
-    if (searchParams?.get('status')==='User cancelled') {
-      toast.error('Cancelled Payment');
-    }
-
-    if (searchParams?.get('status')==='Expired') {
-      toast.error('Transaction Expired');
-    }
-    if (searchParams?.get('status')==='Refunded') {
-      toast.error('Payment Refunded');
-    }
-  }, [searchParams, removeAll]);
 
   const totalPrice = items.reduce((total, item) => {
-    return total + Number(item.price)
+    return total + Number(item.price*item.quantity)
   }, 0);
   const onCheckout =() => {
-    // if(!(info.firstName==''))
-  //  { }
     shipingModel.onOpen()
-    // else{
-    //   router.push('/orders')
-    // }
   }
 
   return ( 
     <div
-      className="mt-16 rounded-lg bg-gray-50 px-4 py-6 sm:p-6 lg:col-span-5 lg:mt-0 lg:p-8"
+      className="mt-16 rounded-lg bg-gray-50 dark:bg-black px-4 py-6 sm:p-6 lg:col-span-5 lg:mt-0 lg:p-8"
     >
-      <h2 className="text-lg font-medium text-gray-900">
+      <h2 className="text-lg font-medium text-gray-900 dark:text-white">
         Order summary
       </h2>
       <div className="mt-6 space-y-4">
         <div className="flex items-center justify-between border-t border-gray-200 pt-4">
-          <div className="text-base font-medium text-gray-900">Order total</div>
+          <div className="text-base font-medium text-gray-900 dark:text-white">Order total</div>
          <Currency value={totalPrice} />
         </div>
       </div>
       {
-        !(items.length===0)? <Button onClick={onCheckout}  className="w-full mt-6">
+        !(items.length===0)? <Button onClick={onCheckout}  className="w-full mt-6 dark:border ">
         Checkout
       </Button>: <Button onClick={()=> window.location.href='/' }  className="w-full mt-6">
          Add Product

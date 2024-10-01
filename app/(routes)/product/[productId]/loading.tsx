@@ -1,4 +1,6 @@
+import ProductPageSkeleton from "./components/ProductPageSkeleton";
+
 export default function Loading() {
     // Or a custom loading skeleton component
-    return <p>Loading...</p>
+    return <ProductPageSkeleton/>
   }

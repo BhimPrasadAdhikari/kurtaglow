@@ -7,7 +7,8 @@ import getCategories from '@/actions/get-categories';
 import NavbarActions from './navbar-actions';
 
 const Navbar = async () => {
-  const categories = await getCategories();
+ 
+ try{ const categories = await getCategories();
   return (
     <Container>
       <div className="relative px-4 sm:px-6 lg:px-8 flex h-16 items-center">
@@ -19,6 +20,12 @@ const Navbar = async () => {
       </div>
     </Container>
   );
+
+}catch(err){
+     console.log("NAVBAR_FETCH_ERROR",err)
+  }
+  
+  
 };
 
 export default Navbar;

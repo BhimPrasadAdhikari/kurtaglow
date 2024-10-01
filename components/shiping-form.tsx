@@ -36,7 +36,7 @@ interface productDetailsProps{
   identity: string,
   name:string,
   total_price: number,
-  quantity:1,
+  quantity: number;  // Quantity of the product (can vary)
   unit_price: number,
 }
 import useCart from '@/hooks/use-cart';
@@ -56,6 +56,7 @@ export const ShipingForm: React.FC = () => {
   const params = useParams();
   const router = useRouter();
   const shipingModel=ShippingModal();
+  const cart = useCart();
   const items = useCart((state) => state.items);
   const User = useUser();
   const {user,isSignedIn} = ClerkUser();
@@ -74,10 +75,15 @@ export const ShipingForm: React.FC = () => {
   });
   const onSubmit = async ({phone,address,firstName,lastName}: ShipingFormValues) => {
   const fullName=`${firstName} ${lastName}`
+  const productDetails = items.map((item) => ({
+    productId: item.id,
+    quantity: item.quantity, // Get quantity from the cart item
+  }));
     try {
       setLoading(true);
         const response= await axios.post(`${process.env.NEXT_PUBLIC_API_URL}checkout`,
-        JSON.stringify({   productIds: items.map((item)=>item.id),
+        JSON.stringify({   
+          productDetails,
           details:{fullName,email,phone, address}
         }),
          { headers:{
@@ -89,33 +95,32 @@ export const ShipingForm: React.FC = () => {
     User.addItem({info:{firstName,lastName,phone,address}});
 toast.success("success");
  console.log(response);
-//  window.location.href="https://kurtaglow-y7cc.vercel.app/orders/"
+ window.location.href="https://kurtaglow-y7cc.vercel.app/payment"
 //  router.push("https://kurtaglow-y7cc.vercel.app/orders/")
-window.location.href="http://localhost:3001/orders"
+// window.location.href="http://localhost:3001/payment"
     } catch (error) {
       toast.error('sorry something went wrong');
     } finally {
       setLoading(false);
     setOpen(true);
-
-      
+    cart.removeAll();
     }
   }; 
  
   return (
     <>
-    <div className='flex flex-col '>
+    <div className='flex flex-col dark:bg-black '>
 
       <div className="flex items-center justify-between">
         <Heading title="Shipping Details" description="fill up deliver  details" />
-             </div>
+      </div>
       <hr />
-      <Form {...form}>
+      <div className='flex items-center justify-center'>
+      <Form {...form} >
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-8 lg:space-y-16 w-full"
+          className="space-y-8 lg:space-y-16 w-full grid grid-cols-2 items-end gap-5"
         >
-          
           <FormField
             control={form.control}
             name="firstName"
@@ -188,10 +193,12 @@ window.location.href="http://localhost:3001/orders"
               </FormItem>
             )}
           />
+        <Button type="submit" className='dark:border'>submit</Button>
           
-          <Button type="submit">submit</Button>
         </form>
+
       </Form>
+        </div>
       <hr className="mt-2" />
     </div>
     </>

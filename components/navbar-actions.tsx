@@ -1,22 +1,35 @@
 "use client"
-import { ShoppingBag } from 'lucide-react';
+import { HeartIcon, ShoppingBag } from 'lucide-react';
 import Button from './Button';
 import { useEffect, useState } from 'react';
 import useCart from "@/hooks/use-cart";
 import { useRouter } from 'next/navigation';
 import { UserButton, UserProfile, auth } from '@clerk/nextjs';
+import { ModeToggle } from './ui/mode-toggle';
+import useWish from '@/hooks/use-wish';
 const NavbarActions = () => {
   const [isMounted, setIsMounted] = useState(false);
   useEffect(() => {
     setIsMounted(true);
   }, []);
   const cart = useCart();
+  const wish=useWish();
 const router=useRouter();
   if (!isMounted) {
     return null;
   }
   return (
     <div className="ml-auto flex items-center gap-x-4">
+      <ModeToggle/>
+      <Button 
+      onClick={() => router.push('/wishlist')}
+      className="bg-black flex items-center px-4 py-2 rounded-full">
+        <HeartIcon size={20} color="white" />
+        <span className="ml-1 text-sm font-medium">
+        {wish.items.length}
+
+        </span>
+      </Button>
       <Button 
       onClick={() => router.push('/cart')}
       className="bg-black flex items-center px-4 py-2 rounded-full">

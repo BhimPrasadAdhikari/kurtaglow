@@ -16,7 +16,7 @@ const getOrders = async (query:Query):Promise<OrderType[]> => {
     const url=qs.stringifyUrl({
         url:baseUrl,
         query:{
-          email:query.email
+          email:query.email,
         }
       })
  const res= await fetch(url);

@@ -1,13 +1,14 @@
 import React, { Suspense } from 'react';
-// import getBillboard from '@/actions/get-billboard';
-import Billboard from '@/components/billboard';
 import Container from '@/components/ui/container';
 import ProductsList from '@/components/product-list';
 import getProducts from '@/actions/get-products';
 import getBillboards from '@/actions/get-billboards';
 import CarouselPlugin from '@/components/carousalPulgin';
+import HomePageSkeleton from "@/components/HomePageSkelton";
+
 export const revalidate = 0;
 const HomePage = async () => {
+ try{ 
   const products = await getProducts({isFeatured:true});
   // const billboard = await getBillboard('66e1b17ee5a4dd025ef90820');
   const billboards = await getBillboards();
@@ -16,10 +17,13 @@ const HomePage = async () => {
     <Container>
       <div className='space-y-10 pb-10'>
         {/* <Billboard data={billboard} /> */}
-        <Suspense fallback={<p>Loading carousalPulgin...</p>}>
+        <Suspense fallback={<HomePageSkeleton/>}>
+        <div className=' flex items-center justify-center mx-20'>
         <CarouselPlugin data={billboards}/>
+
+        </div>
       </Suspense> 
-      <Suspense fallback={<p>Loading products...</p>}>
+      <Suspense fallback={<HomePageSkeleton/>}>
 
          <div className='flex flex-col gap-y-8 px-4 sm:px-6 lg:px-8'>
           <ProductsList title="Featured Products" data={products} />
@@ -28,6 +32,12 @@ const HomePage = async () => {
 
       </div>
     </Container>
-  );
+  );}catch(err){
+    console.log("HOME_PAGE",err)
+    return (
+      <>Something Went Wrong</>
+    )
+  }
+
 };
 export default HomePage;
