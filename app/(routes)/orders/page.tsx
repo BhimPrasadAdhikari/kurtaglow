@@ -9,7 +9,6 @@ import OrderList from './components/order-list';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import OrderPageSkeleton from './components/LoadingSkeleton';
 
-export const revalidate = 0;
 
 const OrderPage = () => {
   const [isLoading, setIsLoading] = useState(true);
