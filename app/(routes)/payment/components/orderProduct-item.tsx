@@ -35,7 +35,7 @@ const OrderProductItem:React.FC<OrderProductItemProps>=async({data,quantity})=>{
     </div>
     <div>
       <p className="text-neutral-400">Quantity</p>
-      <p className="font-semibold">{quantity}</p>
+      <p className="font-semibold mx-2">{quantity}</p>
     </div>
   </div>
 </div>

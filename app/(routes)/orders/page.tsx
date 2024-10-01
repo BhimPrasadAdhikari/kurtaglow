@@ -39,25 +39,34 @@ const OrderPage = () => {
   }, [searchParams]);
 
   // Track tab change with useState
-  const handleTabChange = (value:string) => {
+  const handleTabChange = (value: string) => {
     setPaymentStatus(value);
   };
+
   if (isLoading) {
     return <OrderPageSkeleton />; // Render the loading skeleton
   }
 
   return (
-    <div className="bg-white dark:bg-black">
+    <div className="bg-white dark:bg-black min-h-screen">
       <Container>
         <div className="px-4 py-16 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold text-black dark:text-white">Orders</h1>
+          <h1 className="text-3xl font-bold text-black dark:text-white mb-6">Orders</h1>
           <div>
             <Tabs value={paymentStatus} onValueChange={handleTabChange} className="w-full">
-              <TabsList>
-                <TabsTrigger value="Completed">Completed</TabsTrigger>
-                <TabsTrigger value="Pending">Pending</TabsTrigger>
-                <TabsTrigger value="Abandoned">Abandoned</TabsTrigger>
-                <TabsTrigger value="Refunded">Refunded</TabsTrigger>
+              <TabsList className="flex flex-wrap">
+                <TabsTrigger value="Completed" className="flex-1 text-center">
+                  Completed
+                </TabsTrigger>
+                <TabsTrigger value="Pending" className="flex-1 text-center">
+                  Pending
+                </TabsTrigger>
+                <TabsTrigger value="Abandoned" className="flex-1 text-center">
+                  Abandoned
+                </TabsTrigger>
+                <TabsTrigger value="Refunded" className="flex-1 text-center">
+                  Refunded
+                </TabsTrigger>
               </TabsList>
               <TabsContent value="Completed">
                 <OrderList email={email} paymentStatus="Completed" />
