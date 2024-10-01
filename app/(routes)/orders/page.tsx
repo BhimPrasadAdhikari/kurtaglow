@@ -13,11 +13,13 @@ export const revalidate = 0;
 
 const OrderPage = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const email = String(useUser().user?.primaryEmailAddress);
+  const { user } = useUser(); // Check the user state
+  console.log('User:', user); // Debug log for user
+
+  const email = String(user?.primaryEmailAddress) || "";
   const [paymentStatus, setPaymentStatus] = useState("Pending");
   const searchParams = useSearchParams();
 
-  // Set the initial payment status based on URL query parameters
   useEffect(() => {
     const status = searchParams?.get('status');
     if (status) {
@@ -35,16 +37,14 @@ const OrderPage = () => {
       }
     }
     setTimeout(() => setIsLoading(false), 1500); // Simulating a delay for demo purposes
-
   }, [searchParams]);
 
-  // Track tab change with useState
   const handleTabChange = (value: string) => {
     setPaymentStatus(value);
   };
 
-  if (isLoading) {
-    return <OrderPageSkeleton />; // Render the loading skeleton
+  if (isLoading || !user) {
+    return <OrderPageSkeleton />; // Render the loading skeleton or redirect if not signed in
   }
 
   return (
@@ -54,17 +54,17 @@ const OrderPage = () => {
           <h1 className="text-3xl font-bold text-black dark:text-white mb-6">Orders</h1>
           <div>
             <Tabs value={paymentStatus} onValueChange={handleTabChange} className="w-full">
-              <TabsList className="flex flex-wrap">
-                <TabsTrigger value="Completed" className="flex-1 text-center">
+              <TabsList className="flex flex-wrap border-b border-gray-200 dark:border-gray-700">
+                <TabsTrigger value="Completed" className="flex-1 text-center py-2">
                   Completed
                 </TabsTrigger>
-                <TabsTrigger value="Pending" className="flex-1 text-center">
+                <TabsTrigger value="Pending" className="flex-1 text-center py-2">
                   Pending
                 </TabsTrigger>
-                <TabsTrigger value="Abandoned" className="flex-1 text-center">
+                <TabsTrigger value="Abandoned" className="flex-1 text-center py-2">
                   Abandoned
                 </TabsTrigger>
-                <TabsTrigger value="Refunded" className="flex-1 text-center">
+                <TabsTrigger value="Refunded" className="flex-1 text-center py-2">
                   Refunded
                 </TabsTrigger>
               </TabsList>

@@ -1,16 +1,14 @@
 import { authMiddleware } from '@clerk/nextjs/server';
 
 export default authMiddleware({
-  publicRoutes: ['/', '/category', '/product', '/cart'], // Keep public routes as is
+  publicRoutes: ['/', '/category', '/product:path'], // Routes that can be accessed without signing in
+  ignoredRoutes: ['/orders'], // Prevent Clerk from checking auth for this route
 });
 
 export const config = {
   matcher: [
-    // Apply middleware to all routes except those defined in publicRoutes
     '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
-    // Always run for API routes
     '/(api|trpc)(.*)',
-    // Add orders route to ensure authentication check
-    '/orders/:path*', // This ensures only signed-in users can access /orders and its sub-routes
+    '/orders', // Ensure this route is included in the matcher
   ],
 };
