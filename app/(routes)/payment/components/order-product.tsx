@@ -1,20 +1,26 @@
 import { Orderitem } from "@/types";
 import OrderProductItem from "./orderProduct-item";
 
-interface OrderProductProps {
-    data: Orderitem[];
+interface OrderProductProps{
+    data:Orderitem[];
 }
 
-const OrderProduct: React.FC<OrderProductProps> = ({ data }) => {
-    return (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            {data.map((item) => (
-                <div key={item.id} className="p-2 border rounded-lg shadow hover:shadow-md transition-shadow duration-200">
+const OrderProduct:React.FC<OrderProductProps>=(
+    {data}
+)=>{
+    console.log('orderItems',data)
+return(
+    <>
+    <div>
+        {
+            data.map((item)=>{
+                return <div key={item.id}>
                     <OrderProductItem data={item.productId} quantity={item.quantity} />
                 </div>
-            ))}
-        </div>
-    );
-};
-
+            })
+        }
+    </div>
+    </>
+)
+}
 export default OrderProduct;
