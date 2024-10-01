@@ -249,20 +249,20 @@ const msg=`total_amount=${total_amount},transaction_uuid=${transaction_uuid},pro
 </svg>
 
       </Button>
-      <form action="https://rc-epay.esewa.com.np/api/epay/main/v2/form" method="POST">
- <div hidden><input type="text" id="amount" name="amount" defaultValue="100" required />
+      <form action="https://epay.esewa.com.np/api/epay/main/v2/form" method="POST">
+ <div hidden><input type="text" id="amount" name="amount" defaultValue={totalPrice} required />
  <input type="text" id="tax_amount" name="tax_amount" defaultValue ="10" required />
  <input type="text" id="total_amount" name="total_amount" defaultValue={total_amount} required/>
  <input type="text" id="transaction_uuid" name="transaction_uuid" required defaultValue={transaction_uuid}/>
  <input type="text" id="product_code" name="product_code" defaultValue ={product_code} required/>
  <input type="text" id="product_service_charge" name="product_service_charge" defaultValue="0" required/>
  <input type="text" id="product_delivery_charge" name="product_delivery_charge" defaultValue="0" required/>
- <input type="text" id="success_url" name="success_url" defaultValue="http://localhost:3001/orders" required/>
- <input type="text" id="failure_url" name="failure_url" defaultValue="http://localhost:3001" required/>
+ <input type="text" id="success_url" name="success_url" defaultValue="https://kurtaglow-y7cc.vercel.app/cart/" required/>
+ <input type="text" id="failure_url" name="failure_url" defaultValue="https://kurtaglow-y7cc.vercel.app/payment/" required/>
  <input type="text" id="signed_field_names" name="signed_field_names" defaultValue="total_amount,transaction_uuid,product_code" required/>
  <input type="text" id="signature" name="signature"  required defaultValue={signature}/>
  </div>
- <Button className="w-full mt-6 bg-green-200 flex items-center justify-center h-12"  onClick={onEsewaCheckout}>
+ <Button className="w-full mt-6 bg-green-200 flex items-center justify-center h-12" type="submit">
  <Image src='https://rc-epay.esewa.com.np/assets/img/logo.svg' width={120} height={31} alt="esewa logo"/>
       </Button>
  </form>
