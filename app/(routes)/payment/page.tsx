@@ -4,15 +4,18 @@ import { useEffect, useState } from 'react';
 import Container from '@/components/ui/container';
 import OrderList from './components/order-list';
 import { useUser } from '@clerk/nextjs';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export const revalidate = 0;
+
 const PaymentPage = () => {
   const [isMounted, setIsMounted] = useState(false);
+
   useEffect(() => {
     setIsMounted(true);
   }, []);
-  const email=String(useUser().user?.primaryEmailAddress)
+
+  const email = String(useUser().user?.primaryEmailAddress);
 
   if (!isMounted) {
     return null;
@@ -25,21 +28,24 @@ const PaymentPage = () => {
           <h1 className="text-3xl font-bold text-black dark:text-white">Payment</h1>
           <div className="mt-12 lg:grid lg:grid-cols-12 lg:items-start gap-x-12">
             <div className="lg:col-span-7">
-            <Tabs defaultValue="Pending" className="w-full">
-               <TabsList>
-                      <TabsTrigger value="Pending" >Pending</TabsTrigger>
-                      <TabsTrigger value="Abandoned">Abandoned</TabsTrigger>
+              <Tabs defaultValue="Pending" className="w-full">
+                <TabsList className="flex space-x-2">
+                  <TabsTrigger value="Pending" className="flex-1 text-center">Pending</TabsTrigger>
+                  <TabsTrigger value="Abandoned" className="flex-1 text-center">Abandoned</TabsTrigger>
                 </TabsList>
-                <TabsContent value="Pending"><OrderList email={email} paymentStatus='Pending'/></TabsContent>
-                <TabsContent value="Abandoned"><OrderList email={email} paymentStatus='Abandoned'/></TabsContent>
-            </Tabs>
+                <TabsContent value="Pending">
+                  <OrderList email={email} paymentStatus='Pending' />
+                </TabsContent>
+                <TabsContent value="Abandoned">
+                  <OrderList email={email} paymentStatus='Abandoned' />
+                </TabsContent>
+              </Tabs>
             </div>
-            
           </div>
         </div>
       </Container>
     </div>
-  )
+  );
 };
 
 export default PaymentPage;

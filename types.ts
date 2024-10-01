@@ -51,6 +51,7 @@ export interface Order{
     paymentStatus:string;
     phone:string;
     address:string;
+    createdAt : Date;
 }
 export interface Orderitem{
     id:string;
