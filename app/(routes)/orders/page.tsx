@@ -1,4 +1,5 @@
 "use client";
+export const revalidate = 0;
 
 import { useEffect, useState } from 'react';
 import Container from '@/components/ui/container';
