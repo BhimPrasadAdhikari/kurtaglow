@@ -28,7 +28,7 @@ const OrderItem: React.FC<OrderItemProps> = ({ data }) => {
             </div>
             <div className="flex-1">
               <p className="text-neutral-400">Date</p>
-              <p>{data.createdAt.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</p>
+              <p>{data.createdAt.toString()}</p>
               </div>
           </div>
         </div>
