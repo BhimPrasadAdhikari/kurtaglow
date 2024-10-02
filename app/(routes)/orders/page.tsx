@@ -10,10 +10,13 @@ import OrderList from './components/order-list';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import OrderPageSkeleton from './components/LoadingSkeleton';
 import getOrders from '@/actions/get-orders';
+import { Order } from '@/types';
 
 const OrderPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [email, setEmail] = useState("");
+  const [orders, setOrders] = useState<Order[]>([]);
+
   const { user, isLoaded } = useUser(); // Add isLoaded for checking user state
 
   const [paymentStatus, setPaymentStatus] = useState("Pending");
@@ -27,6 +30,7 @@ const OrderPage = () => {
   
         const orders = await getOrders({ email: String(user.primaryEmailAddress) });
         console.log('Orders:', orders); // Debug log for orders
+        setOrders(orders)
       }
     }
     fetchData();
@@ -78,16 +82,16 @@ const OrderPage = () => {
                 </TabsTrigger>
               </TabsList>
               <TabsContent value="Completed">
-                {/* <OrderList email={email} paymentStatus="Completed" /> */}
+                <OrderList orders={orders} paymentStatus="Completed" />
               </TabsContent>
               <TabsContent value="Pending">
-                {/* <OrderList email={email} paymentStatus="Pending" /> */}
+                <OrderList orders={orders} paymentStatus="Pending" />
               </TabsContent>
               <TabsContent value="Abandoned">
-                {/* <OrderList email={email} paymentStatus="Abandoned" /> */}
+                <OrderList orders={orders} paymentStatus="Abandoned" />
               </TabsContent>
               <TabsContent value="Refunded">
-                {/* <OrderList email={email} paymentStatus="Refunded" /> */}
+                <OrderList orders={orders} paymentStatus="Refunded" />
               </TabsContent>
             </Tabs>
           </div>
