@@ -1,18 +1,17 @@
 
 
 import Container from '@/components/ui/container';
-import getOrders from '@/actions/get-orders';
 import OrderItem from './order-item';
+import { Order } from '@/types';
 export const revalidate = 0;
 interface OrderListProps{
-    email:string;
     paymentStatus:string;
+    orders:Order[];
 }
-const OrderList:React.FC<OrderListProps> = async ({
-    email,
-    paymentStatus
+const OrderList:React.FC<OrderListProps> =  ({
+    paymentStatus,
+    orders
 }) => {
-  const orders= await  getOrders({email:email});
   const filteredOrders= orders.filter((order)=>order.paymentStatus===paymentStatus)
   return (
     <div className="bg-white dark:bg-black">
