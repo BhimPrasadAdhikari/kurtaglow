@@ -4,7 +4,6 @@ import Container from '@/components/ui/container';
 import getOrders from '@/actions/get-orders';
 import OrderItem from './order-item';
 import Summary from './summary';
-export const revalidate = 0;
 interface OrderListProps{
     email:string;
     paymentStatus:string;
