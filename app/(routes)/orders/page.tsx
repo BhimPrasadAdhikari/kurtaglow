@@ -29,7 +29,7 @@ const OrderPage = () => {
         console.log('Orders:', orders); // Debug log for orders
       }
     }
-
+    fetchData();
     const status = searchParams?.get('status');
     if (status) {
       if (status === 'completed') {
