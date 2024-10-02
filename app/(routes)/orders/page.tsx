@@ -12,18 +12,12 @@ import OrderPageSkeleton from './components/LoadingSkeleton';
 
 const OrderPage = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [email, setEmail] = useState("");
   const { user, isLoaded } = useUser(); // Add isLoaded for checking user state
+  const email=String(user?.primaryEmailAddress);
 
   const [paymentStatus, setPaymentStatus] = useState("Pending");
   const searchParams = useSearchParams();
-
   useEffect(() => {
-    if (isLoaded && user) {
-      setEmail(String(user.primaryEmailAddress));
-      console.log('User_Email:', user?.primaryEmailAddress); // Debug log for user
-    }
-
     const status = searchParams?.get('status');
     if (status) {
       if (status === 'completed') {
@@ -40,9 +34,9 @@ const OrderPage = () => {
       }
     }
     setTimeout(() => setIsLoading(false), 1500); // Simulating a delay for demo purposes
-  }, [searchParams, user, isLoaded]);
+  }, [searchParams]);
 
-  if (isLoading || !isLoaded || !user) {
+  if (isLoading) {
     return <OrderPageSkeleton />; // Render the loading skeleton or redirect if not signed in
   }
 
