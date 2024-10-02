@@ -65,7 +65,7 @@ const OrderPage = () => {
                 {/* <OrderList email={email} paymentStatus="Completed" /> */}
               </TabsContent>
               <TabsContent value="Pending">
-                {/* <OrderList email={email} paymentStatus="Pending" /> */}
+                <OrderList email={email} paymentStatus="Pending" />
               </TabsContent>
               <TabsContent value="Abandoned">
                 {/* <OrderList email={email} paymentStatus="Abandoned" /> */}
