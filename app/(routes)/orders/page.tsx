@@ -62,16 +62,16 @@ const OrderPage = () => {
                 </TabsTrigger>
               </TabsList>
               <TabsContent value="Completed">
-                <OrderList email={email} paymentStatus="Completed" />
+                {/* <OrderList email={email} paymentStatus="Completed" /> */}
               </TabsContent>
               <TabsContent value="Pending">
-                <OrderList email={email} paymentStatus="Pending" />
+                {/* <OrderList email={email} paymentStatus="Pending" /> */}
               </TabsContent>
               <TabsContent value="Abandoned">
-                <OrderList email={email} paymentStatus="Abandoned" />
+                {/* <OrderList email={email} paymentStatus="Abandoned" /> */}
               </TabsContent>
               <TabsContent value="Refunded">
-                <OrderList email={email} paymentStatus="Refunded" />
+                {/* <OrderList email={email} paymentStatus="Refunded" /> */}
               </TabsContent>
             </Tabs>
           </div>
