@@ -46,7 +46,7 @@ const OrderPage = () => {
         <div className="px-4 py-16 sm:px-6 lg:px-8">
           <h1 className="text-3xl font-bold text-black dark:text-white mb-6">Orders</h1>
           <div>
-            <Tabs value={paymentStatus} className="w-full">
+            <Tabs className="w-full" defaultValue='Pending'>
               <TabsList className="flex flex-wrap border-b border-gray-200 dark:border-gray-700">
                 <TabsTrigger value="Completed" className="flex-1 text-center py-2">
                   Completed
