@@ -3,42 +3,21 @@ export const revalidate = 0;
 
 import { useEffect, useState } from 'react';
 import Container from '@/components/ui/container';
-import { useSearchParams } from 'next/navigation';
-import toast from 'react-hot-toast';
+// import { useSearchParams } from 'next/navigation';
 import { useUser } from '@clerk/nextjs';
 import OrderList from './components/order-list';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import OrderPageSkeleton from './components/LoadingSkeleton';
+// import OrderPageSkeleton from './components/LoadingSkeleton';
 
 const OrderPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const { user, isLoaded } = useUser(); // Add isLoaded for checking user state
   const email=String(user?.primaryEmailAddress);
 
-  const [paymentStatus, setPaymentStatus] = useState("Pending");
-  const searchParams = useSearchParams();
-  useEffect(() => {
-    const status = searchParams?.get('status');
-    if (status) {
-      if (status === 'completed') {
-        toast.success('Payment completed.');
-        setPaymentStatus("Completed");
-      } else if (status === 'User cancelled') {
-        toast.error('Cancelled Payment');
-        setPaymentStatus("Abandoned");
-      } else if (status === 'Expired') {
-        toast.error('Transaction Expired');
-      } else if (status === 'Refunded') {
-        toast.error('Payment Refunded');
-        setPaymentStatus("Refunded");
-      }
-    }
-    setTimeout(() => setIsLoading(false), 1500); // Simulating a delay for demo purposes
-  }, [searchParams]);
-
-  if (isLoading) {
-    return <OrderPageSkeleton />; // Render the loading skeleton or redirect if not signed in
-  }
+  // const searchParams = useSearchParams();
+  // if (isLoading) {
+  //   return <OrderPageSkeleton />; // Render the loading skeleton or redirect if not signed in
+  // }
 
   return (
     <div className="bg-white dark:bg-black min-h-screen">
