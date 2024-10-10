@@ -53,7 +53,7 @@ export const ShipingForm: React.FC = () => {
     User.addItem({ info: { firstName, lastName, phone, address } });
     toast.success("success");
     setLoading(false);
-    router.push('/payment');
+    window.location.href= `/payment`
   };
 
   return (

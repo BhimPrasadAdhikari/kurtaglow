@@ -13,7 +13,7 @@ const OrderItem: React.FC<OrderItemProps> = ({ data }) => {
         <OrderProduct data={data.orderItems} />
       </div>
       <div className="relative ml-4 flex flex-1 flex-col justify-between sm:ml-6 border-t-gray-400">
-        <div className="relative pr-12 gap-3 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:pr-0">
+        <div className="relative ">
           <div>
             <p className="text-neutral-400">Id</p>
             <p>{data.id}</p>

@@ -112,7 +112,7 @@ const Summary = () => {
         }),
         {
           headers: {
-            Authorization: `Key ${process.env.NEXT_PUBLIC_KHALTI_SECRET_KEY}`,
+            Authorization: `Key ${process.env.KHALTI_SECRET_KEY}`,
             "Content-Type": "application/json",
           },
         }

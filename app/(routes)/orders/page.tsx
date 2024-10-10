@@ -61,7 +61,8 @@ const OrderPage = () => {
               onValueChange={handleTabChange}
               className=""
             >
-              <TabsList className="flex gap-2 flex-wrap border-b border-gray-200 dark:border-gray-700">
+              <TabsList className="flex flex-col border-b bg-none">
+              <div>
                 <TabsTrigger
                   value="Completed"
                   className="flex-1 text-center py-2"
@@ -80,6 +81,8 @@ const OrderPage = () => {
                 >
                   Abandoned
                 </TabsTrigger>
+                </div>
+                <div>
                 <TabsTrigger
                   value="Refunded"
                   className="flex-1 text-center py-2"
@@ -98,6 +101,7 @@ const OrderPage = () => {
                 >
                   On The Way
                 </TabsTrigger>
+                </div>
               </TabsList>
               <TabsContent value="Completed">
                 <OrderList orders={orders} paymentStatus="Completed" />
