@@ -18,6 +18,7 @@ import { toast } from "react-hot-toast";
 import * as z from "zod";
 
 import useUser from "@/hooks/use-user";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   firstName: z.string().min(1),
@@ -28,6 +29,7 @@ const formSchema = z.object({
 type ShipingFormValues = z.infer<typeof formSchema>;
 export const ShipingForm: React.FC = () => {
   const User = useUser();
+  const router = useRouter()
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const form = useForm<ShipingFormValues>({
@@ -51,7 +53,7 @@ export const ShipingForm: React.FC = () => {
     User.addItem({ info: { firstName, lastName, phone, address } });
     toast.success("success");
     setLoading(false);
-    window.location.href = "http://localhost:3000/payment";
+    router.push('/payment');
   };
 
   return (

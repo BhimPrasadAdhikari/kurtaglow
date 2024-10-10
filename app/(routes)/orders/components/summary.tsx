@@ -12,6 +12,7 @@ import { createHmac } from "crypto";
 import { v4 as uuidv4 } from "uuid";
 import Image from "next/image";
 import { url } from "inspector";
+import { useUser as User } from "@clerk/nextjs";
 import { EditIcon } from "lucide-react";
 import useShipingModel from "@/hooks/use-shiping-model";
 interface productDetailsProps {
@@ -25,6 +26,8 @@ interface productDetailsProps {
 const Summary = () => {
   const searchParams = useSearchParams();
   const [loading, setLoading] = useState(false);
+  const {user}= User();
+  const email = user?.primaryEmailAddress?.emailAddress
 
   const items = useCart((state) => state.items);
   const shipingModel = useShipingModel();
@@ -68,7 +71,7 @@ const Summary = () => {
     return total + Number(item.price);
   }, 0);
   const hmac = createHmac("sha256", "8gBm/:&EnhH.1/q");
-  const total_amount = "110";
+  const total_amount = totalPrice;
   const transaction_uuid = uuidv4();
   const product_code = "EPAYTEST";
   const msg = `total_amount=${total_amount},transaction_uuid=${transaction_uuid},product_code=${product_code}`;
@@ -79,18 +82,18 @@ const Summary = () => {
     try {
       setLoading(true);
       const Khalti_response = await axios.post(
-        "https://a.khalti.com/api/v2/epayment/initiate/",
+        `${process.env.NEXT_PUBLIC_KHALTI_PAYMENT_API}/initiate/`,
         JSON.stringify({
-          return_url: "http://localhost:3001/cart/",
+          return_url: `${process.env.STORE_URL}cart/`,
 
-          website_url: "http://localhost:3001",
+          website_url: `${process.env.STORE_URL}`,
 
-          amount: totalPrice + totalPrice * 0.13,
-          purchase_order_id: "test12",
-          purchase_order_name: "test",
+          amount: totalPrice*100,
+          purchase_order_id: productDetails[0].identity,
+          purchase_order_name:`${firstName}${lastName}` ,
           customer_info: {
             name: `${firstName} ${lastName}`,
-            email: "example@gmail.com",
+            email: email,
             phone: phone,
           },
           amount_breakdown: [
@@ -104,12 +107,12 @@ const Summary = () => {
             },
           ],
           product_details: productDetails,
-          merchant_username: "Test Testt ",
-          merchant_extra: "bhimprasadaadhikari98@gmail.com",
+          merchant_username: `${process.env.NEXT_PUBLIC_KHALTI_MERCHANT_USERNAME}`,
+          merchant_extra:  `${process.env.NEXT_PUBLIC_KHALTI_MERCHANT_EMAIL}`,
         }),
         {
           headers: {
-            Authorization: " Key a7ece28fa52348fbb36781362509e92a",
+            Authorization: `Key ${process.env.NEXT_PUBLIC_KHALTI_SECRET_KEY}`,
             "Content-Type": "application/json",
           },
         }
@@ -124,8 +127,8 @@ const Summary = () => {
   const onEsewaCheckout = async () => {
     try {
       setLoading(true);
-      const Khalti_response = await axios.post(
-        "https://rc-epay.esewa.com.np/api/epay/main/v2/form",
+      const Esewa_response = await axios.post(
+        `${process.env.NEXT_PUBLIC_ESEWA_FORM_API}`,
         JSON.stringify({
           amount: "100",
           tax_amount: "10",
@@ -135,8 +138,8 @@ const Summary = () => {
           product_delivery_charge: "0",
           product_service_charge: "0",
           signed_field_names: "total_amount,transaction_uuid,product_code",
-          success_url: "https://esewa.com.np",
-          failure_url: "https://google.com",
+          success_url: `${process.env.NEXT_PUBLIC_STORE_URL}payment/`,
+          failure_url: `${process.env.NEXT_PUBLIC_STORE_URL}payment/`,
 
           signature: `${signature}`,
         })
@@ -318,7 +321,7 @@ const Summary = () => {
         </svg>
       </Button>
       <form
-        action="https://rc-epay.esewa.com.np/api/epay/main/v2/form"
+        action={`${process.env.NEXT_PUBLIC_ESEWA_FORM_API}`}
         method="POST"
       >
         <div hidden>
@@ -375,14 +378,14 @@ const Summary = () => {
             type="text"
             id="success_url"
             name="success_url"
-            defaultValue="http://localhost:3001/orders"
+            defaultValue={`${process.env.NEXT_PUBLIC_STORE_URL}`}
             required
           />
           <input
             type="text"
             id="failure_url"
             name="failure_url"
-            defaultValue="http://localhost:3001"
+            defaultValue={`${process.env.NEXT_PUBLIC_STORE_URL}/payment`}
             required
           />
           <input

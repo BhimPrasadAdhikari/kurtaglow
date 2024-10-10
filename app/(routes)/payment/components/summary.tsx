@@ -55,25 +55,24 @@ const Summary: React.FC<SummaryProps> = ({ summaryData }) => {
     unit_price: product.discount==0? product.price:product.price-(product.price-(product.discount*product.price)/100),
   }));
 
-  // const totalPrice = productDetails.reduce((total, order) => {
-  //     // Calculate total for current order
-  //     const itemTotal = order.total_price
-  //     // Add current order total to the overall total
-  //     return total + itemTotal;
-  // }, 0);
-let totalPrice = 100
+  const totalPrice = productDetails.reduce((total, order) => {
+      // Calculate total for current order
+      const itemTotal = order.total_price
+      // Add current order total to the overall total
+      return total + itemTotal;
+  }, 0);
   useEffect(() => {
     if (searchParams?.get("status") === "Completed") {
       const checkStatus = async () => {
         try {
           const lookup_response = await axios.post(
-            "https://a.khalti.com/api/v2/epayment/lookup/",
+            `${process.env.NEXT_PUBLIC_KHALTI_PAYMENT_API}/lookup/`,
             JSON.stringify({
               pidx: searchParams?.get("pidx"),
             }),
             {
               headers: {
-                Authorization: "Key a7ece28fa52348fbb36781362509e92a",
+                Authorization: `Key ${process.env.NEXT_PUBLIC_KHALTI_SECRET_KEY}`,
                 "Content-Type": "application/json",
               },
             }
@@ -130,9 +129,9 @@ let totalPrice = 100
     }
   }, [searchParams, fullName, email, address, orderDetails, phone, cart]);
   const hmac = createHmac("sha256", "8gBm/:&EnhH.1/q");
-  const total_amount = "110";
+  const total_amount = totalPrice;
   const transaction_uuid = uuidv4();
-  const product_code = "EPAYTEST";
+  const product_code =  `${firstName} ${lastName}`;
   const msg = `total_amount=${totalPrice+totalPrice * 0.13+totalPrice*0.02},transaction_uuid=${transaction_uuid},product_code=${product_code}`;
   const data = hmac.update(msg);
   const signature = data.digest("base64");
@@ -141,10 +140,10 @@ let totalPrice = 100
     try {
       setLoading(true);
       const Khalti_response = await axios.post(
-        "https://a.khalti.com/api/v2/epayment/initiate/",
+        `${process.env.NEXT_PUBLIC_KHALTI_PAYMENT_API}/initiate/`,
         JSON.stringify({
-          return_url: "http://localhost:3000/payment/",
-          website_url: "http://localhost:3000",
+          return_url: `${process.env.NEXT_PUBLIC_STORE_URL}payment/`,
+          website_url: `${process.env.NEXT_PUBLIC_STORE_URL}`,
           amount: totalPrice * 100 + totalPrice * 100 * 0.13+totalPrice*0.02*100,
           purchase_order_id: productDetails[0].identity,
           purchase_order_name:  `${firstName} ${lastName}`,
@@ -168,25 +167,25 @@ let totalPrice = 100
             }
           ],
           product_details: productDetails,
-          merchant_username: "Test Testt ",
-          merchant_extra: "bhimprasadaadhikari98@gmail.com",
+          merchant_username: `${process.env.NEXT_PUBLIC_KHALTI_MERCHANT_USERNAME}`,
+          merchant_extra:  `${process.env.NEXT_PUBLIC_KHALTI_MERCHANT_EMAIL}`,
         }),
         {
           headers: {
-            Authorization: " Key a7ece28fa52348fbb36781362509e92a",
+            Authorization: `Key ${process.env.NEXT_PUBLIC_KHALTI_SECRET_KEY}`,
             "Content-Type": "application/json",
           },
         }
       ); //Khalti_post ends here
 
       const lookup_response = await axios.post(
-        "https://a.khalti.com/api/v2/epayment/lookup/",
+        `${process.env.NEXT_PUBLIC_KHALTI_PAYMENT_API}lookup/`,
         JSON.stringify({
           pidx: Khalti_response.data.pidx,
         }),
         {
           headers: {
-            Authorization: "Key a7ece28fa52348fbb36781362509e92a",
+            Authorization: `Key ${process.env.NEXT_PUBLIC_KHALTI_SECRET_KEY}`,
             "Content-Type": "application/json",
           },
         }
@@ -369,7 +368,7 @@ let totalPrice = 100
         </svg>
       </Button>
       <form
-        action="https://epay.esewa.com.np/api/epay/main/v2/form"
+        action={`${process.env.NEXT_PUBLIC_ESEWA_FORM_API}`}
         method="POST"
       >
         <div hidden>
@@ -426,14 +425,14 @@ let totalPrice = 100
             type="text"
             id="success_url"
             name="success_url"
-            defaultValue="https://kurtaglow-y7cc.vercel.app/cart/"
+            defaultValue={`${process.env.NEXT_PUBLIC_STORE_URL}`}
             required
           />
           <input
             type="text"
             id="failure_url"
             name="failure_url"
-            defaultValue="localhost:3000/payment/"
+            defaultValue={`${process.env.NEXT_PUBLIC_STORE_URL}payment`}
             required
           />
           <input
