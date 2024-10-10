@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import * as React from "react";
 import Autoplay from "embla-carousel-autoplay";
 import { Billboard } from "@/types";
@@ -21,21 +21,25 @@ const CarouselPlugin: React.FC<CarouselProps> = ({ data }) => {
   );
 
   return (
-    <div className="w-full h-60 sm:h-80 md:h-96 lg:h-112 relative overflow-hidden"> {/* Full width and responsive height */}
+    <div className="w-full h-60 sm:h-80 md:h-96 lg:h-112 relative overflow-hidden">
+      {" "}
+      {/* Full width and responsive height */}
       <Carousel
         plugins={[plugin.current]}
         className="w-full h-full" // Full width and height
       >
-        <CarouselContent className="h-full w-full p-0">          
+        <CarouselContent className="h-full w-full p-0">
           {data.map((billboard, index) => (
             <CarouselItem key={index} className="h-full w-full">
-              <div className="h-full w-full flex justify-center items-center"> {/* Centering the image */}
-                <Image 
-                  src={billboard.imageUrl} 
-                  height={700} 
-                  width={700} 
-                  alt="image" 
-                  priority 
+              <div className="h-full w-full flex justify-center items-center">
+                {" "}
+                {/* Centering the image */}
+                <Image
+                  src={billboard.imageUrl}
+                  height={700}
+                  width={700}
+                  alt="image"
+                  priority
                   className="object-cover h-full w-full" // Ensure the image covers the area
                 />
               </div>
@@ -47,6 +51,6 @@ const CarouselPlugin: React.FC<CarouselProps> = ({ data }) => {
       </Carousel>
     </div>
   );
-}
+};
 
 export default CarouselPlugin;

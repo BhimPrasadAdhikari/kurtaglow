@@ -1,21 +1,23 @@
 
 
 import Container from '@/components/ui/container';
-import getOrders from '@/actions/get-orders';
 import OrderItem from './order-item';
 import Summary from './summary';
+import { useEffect, useState } from 'react';
+import { Order } from '@/types';
 interface OrderListProps{
-    email:string;
-    paymentStatus:string;
+    orders:Order[];
+    paymentStatus: string;
 }
-const OrderList:React.FC<OrderListProps> = async ({
-    email,
-    paymentStatus
-
+const OrderList:React.FC<OrderListProps> = ({
+   orders,
+   paymentStatus
 }) => {
-  const orders= await  getOrders({email:email});
-  console.log(orders)
-  const filteredOrders= orders.filter((order)=>order.paymentStatus===paymentStatus)
+  const [filteredOrders,setFilterOrders]=useState<Order[]>([])
+  useEffect(()=>{
+    const filteredOrders = orders.filter((order)=>order.paymentStatus.toLowerCase()===paymentStatus.toLowerCase())
+     setFilterOrders(filteredOrders);
+  },[paymentStatus,orders])
   return (
    <><div className="bg-white dark:bg-black p-5">
       <Container>
@@ -25,7 +27,7 @@ const OrderList:React.FC<OrderListProps> = async ({
                 ))}
       </Container>
     </div>
-<Summary orders={orders}/>
+{/* <Summary orders={orders}/> */}
     </> 
   )
 };

@@ -10,9 +10,11 @@ const Summary = () => {
   const items = useCart((state) => state.items);
 
   const totalPrice = items.reduce((total, item) => {
-    return total + Number(item.price * item.quantity);
+    return total + Number(item.price * item.quantity-item.price * (item.discount/100)*item.quantity);
   }, 0);
-
+ const totalDiscount = items.reduce((total, item) => {
+  return total + Number(item.price * (item.discount/100)*item.quantity);
+}, 0);
   const onCheckout = () => {
     shipingModel.onOpen();
   };
@@ -25,9 +27,26 @@ const Summary = () => {
       <div className="mt-6 space-y-4">
         <div className="flex items-center justify-between border-t border-gray-200 pt-4">
           <div className="text-base font-medium text-gray-900 dark:text-white">
-            Order Total
+            Order Total<span className="text-sm">(inc tax and delivery charge)</span>
           </div>
-          <Currency value={totalPrice} />
+          <Currency value={totalPrice+totalPrice*0.13+totalPrice*0.02} />
+        </div>
+        <div className="flex items-center justify-between border-t  pt-4">
+          <div className="text-base font-medium text-yellow-600">
+            Vat Amount
+          </div>
+          <span><Currency value={totalDiscount*0.13} /></span>
+        </div>
+        <div className="flex items-center justify-between border-t  pt-4">
+          <div className="text-base font-medium text-yellow-600">
+              Delivery Charge          </div>
+          <span><Currency value={totalPrice*0.02} /></span>
+        </div>
+        <div className="flex items-center justify-between border-t  pt-4">
+          <div className="text-base font-medium text-yellow-600">
+            Total Discount
+          </div>
+          <span><Currency value={totalDiscount} /></span>
         </div>
       </div>
       {items.length !== 0 ? (
