@@ -21,7 +21,7 @@ const SearchBar: React.FC = () => {
     }
 
     // Regular expression to check if the query contains only letters
-    const regex = /^[a-zA-Z]+$/; // This matches only letters (uppercase and lowercase)
+    const regex = /^[a-zA-Z\s]+$/; // This matches only letters (uppercase and lowercase)
 
     if (!regex.test(query)) {
       toast.error("Query can only contain letters.");

@@ -8,8 +8,8 @@ interface OrderItemProps {
 
 const OrderItem: React.FC<OrderItemProps> = ({ data }) => {
   return ( 
-    <li className="flex w-full flex-col gap-14  py-6 border-b dark:text-white ">
-      <div className="relative h-24 w-28 rounded-md sm:h-48 sm:w-48 flex mx-5 flex-wrap">
+    <li className="flex w-full flex-col gap-14  py-6 border-b dark:text-white my-3 ">
+      <div className="relative rounded-md  flex mx-5">
         <OrderProduct data={data.orderItems} />
       </div>
       <div className="relative ml-4 flex flex-1 flex-col justify-between sm:ml-6 border-t-gray-400">

@@ -30,7 +30,7 @@ export interface Product {
   images: Images[];
   sizes:Size[];
   size: Size;
-  productSpecifications: { specId: string; value: string };
+  productSpecification: { name: string; value: string }[];
 }
 export interface Color {
   id: string;

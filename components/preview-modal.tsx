@@ -10,7 +10,13 @@ const PreviewModal = () => {
   if (!product) {
     return null;
   }
-
+  // Transform the specifications array into an array of objects
+  const specificationsArray = product.productSpecification.map(
+    (ps: { name: string; value: string }) => ({
+      name: ps.name, 
+      value: ps.value,
+    })
+  );
   return (
     <Modal open={previewModal.isOpen} onClose={previewModal.onClose}>
       <div className=" flex justify-between flex-wrap gap-2">
@@ -20,7 +26,7 @@ const PreviewModal = () => {
         <div className=" ">
           <Info
             data={product}
-            productSpecification={[]}
+            productSpecification={specificationsArray}
           />
         </div>
       </div>

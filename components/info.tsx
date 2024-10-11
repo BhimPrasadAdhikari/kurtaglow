@@ -43,10 +43,10 @@ const Info: React.FC<InfoProps> = ({
         </div>
       </div>
       <hr className="my-4" />
-      <div className="flex flex-col gap-y-6">
+      <div className="flex flex-col">
         <div className="flex items-center gap-x-4 ">
           <h3 className="font-semibold text-black dark:text-white"> Size:</h3>
-          <div>{data?.size.name}</div>
+          <div>{data?.size? data.size.name:"medium"}</div>
         </div>
         <div className="flex items-center gap-x-4 ">
           <h3 className="font-semibold text-black  dark:text-white"> Color:</h3>
@@ -60,18 +60,34 @@ const Info: React.FC<InfoProps> = ({
       <h2 className="text-1xl font-bold text-gray-900  dark:text-white">
         Specifications
       </h2>
-      <div className="flex  gap-x-6 flex-wrap">
-        {productSpecification?.map((specification, index) => {
+      <div className="flex gap-10 justify-between">
+       <div className="flex flex-col">
+        {productSpecification.slice(0,Math.floor(productSpecification.length / 2))?.map((specification, index) => {
+          return (
+            <div key={index} className="flex flex-col  gap-y-1 flex-wrap ">
+              <h3 className="font-semibold text-gray-500">
+                {specification.name}
+              </h3>
+              <div className="text-sm text-wrap">{specification.value}</div>
+              <hr />
+            </div>
+          );
+        })}
+        </div>
+        <div className="flex flex-col">
+    
+        {productSpecification.slice(Math.floor(productSpecification.length / 2))?.map((specification, index) => {
           return (
             <div key={index} className="flex flex-col  gap-y-1 ">
               <h3 className="font-semibold text-gray-500">
                 {specification.name}
               </h3>
-              <div>{specification.value}</div>
+              <div className="text-sm">{specification.value}</div>
               <hr />
             </div>
           );
         })}
+        </div>
       </div>
       <div className="mt-10 flex items-center gap-x-3">
         <Button onClick={onAddToCart} className="flex items-center gap-x-2">

@@ -10,7 +10,7 @@ export interface gallery {
 }
 const Gallery: React.FC<gallery> = ({ images }) => {
   return (
-    <div className="">
+    <div className="w-full h-full relative">
       <Tabs defaultValue={images[0].id} className="w-full">
         {images.map((image) => {
           return (
@@ -20,12 +20,14 @@ const Gallery: React.FC<gallery> = ({ images }) => {
               className="w-full h-full"
             >
               <Image
-                src={image.url}
-                alt="image"
-                width={400}
-                height={400}
-                priority
-                className=""
+                 src={image.url}
+                 width={400}
+                 height={400}
+                 alt="image"
+                 priority
+                 className="" // Ensure the image covers the area
+
+             
               />
             </TabsContent>
           );

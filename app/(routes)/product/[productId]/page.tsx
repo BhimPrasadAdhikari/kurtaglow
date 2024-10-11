@@ -40,6 +40,7 @@ const ProductPage: React.FC<ProductPageProps> = async ({ params }) => {
                 <Gallery images={product.images} />
               </Suspense>
 
+
               {/* Info with Skeleton */}
               <div className="mt-10 px-4 sm:mt-16 sm:px-0 lg:mt-0">
                 <Suspense fallback={<InfoSkeleton />}>

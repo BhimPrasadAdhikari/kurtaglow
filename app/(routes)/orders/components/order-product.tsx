@@ -8,7 +8,7 @@ interface OrderProductProps {
 const OrderProduct: React.FC<OrderProductProps> = ({ data }) => {
   return (
     <>
-      <div className="flex gap-24">
+      <div className="flex w-full h-full flex-wrap">
         {data.map((item) => { 
           return (
             <div key={item.id}>
